@@ -127,7 +127,7 @@ footer{background:#101952 url(carpet.svg) center/260px;padding:22px 0 30px}foote
     <div>
       <span class="tag">20 years. One video store.</span>
       <h1>Make it a Blockbuster night.<em>Again!</em></h1>
-      <p class="lede">Every week, a different year.<br>Walk the aisles like we used to, back in the 80s and 90s.</p>
+      <p class="lede">Every week, a different year.<br><span id="decadeCopy">Walk the aisles like we used to.</span></p>
       <div class="actions">
         <a class="btn btn-install" id="install" href="#">
           <svg class="gem" viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="6" width="20" height="20" rx="4" transform="rotate(45 16 16)" fill="#6c3ce9"/><path d="M13.5 11.5 21 16l-7.5 4.5z" fill="#fff"/></svg>
@@ -235,6 +235,9 @@ footer{background:#101952 url(carpet.svg) center/260px;padding:22px 0 30px}foote
     let s;
     try { s = await (await fetch(base + 'summary.json', { cache: 'no-store' })).json(); } catch (_) { document.getElementById('catalogueStatus').textContent = 'The shelves are being restocked. Please check back shortly.'; return; }
     const yy = String(s.year);
+    const decade = Math.floor(Number(s.year) / 10) * 10;
+    const decadeLabel = decade < 2000 ? String(decade).slice(-2) + 's' : decade + 's';
+    document.getElementById('decadeCopy').textContent = 'Walk the aisles like we used to, back in the ' + decadeLabel + '.';
     document.getElementById('tvYear').textContent = yy;
     const [, mm, dd] = s.weekOf.split('-');
     document.getElementById('tvDate').textContent = dd + '.' + mm + '.' + yy;
